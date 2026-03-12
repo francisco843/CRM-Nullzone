@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% if task %}Edit task{% else %}New task{% endif %} | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Follow-up</p>
+      <h1>{% if task %}Edit task{% else %}New task{% endif %}</h1>
+      <p>Link tasks to companies, contacts, or deals with priority and due date.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button ghost" href="{{ url_for('crm.tasks') }}">Back to tasks</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="panel form-panel full-span">
+    <form class="form-grid" method="post">
+      <label class="field full">
+        <span>Title</span>
+        <input type="text" name="title" value="{{ task.title if task else '' }}" required>
+      </label>
+      <label class="field">
+        <span>Related to</span>
+        <select name="related_reference">
+          <option value="">General</option>
+          {% if relation_options.companies %}
+            <optgroup label="Companies">
+              {% for company in relation_options.companies %}
+                <option value="company:{{ company.id }}" {% if selected_reference == 'company:' ~ company.id %}selected{% endif %}>{{ company.name }}</option>
+              {% endfor %}
+            </optgroup>
+          {% endif %}
+          {% if relation_options.contacts %}
+            <optgroup label="Contacts">
+              {% for contact in relation_options.contacts %}
+                <option value="contact:{{ contact.id }}" {% if selected_reference == 'contact:' ~ contact.id %}selected{% endif %}>{{ contact.name }}</option>
+              {% endfor %}
+            </optgroup>
+          {% endif %}
+          {% if relation_options.deals %}
+            <optgroup label="Deals">
+              {% for deal in relation_options.deals %}
+                <option value="deal:{{ deal.id }}" {% if selected_reference == 'deal:' ~ deal.id %}selected{% endif %}>{{ deal.name }}</option>
+              {% endfor %}
+            </optgroup>
+          {% endif %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Owner</span>
+        <input type="text" name="owner" value="{{ task.owner if task else '' }}">
+      </label>
+      <label class="field">
+        <span>Due date</span>
+        <input type="date" name="due_date" value="{{ task.due_date if task else '' }}">
+      </label>
+      <label class="field">
+        <span>Priority</span>
+        <select name="priority">
+          {% for priority in task_priorities %}
+            <option value="{{ priority }}" {% if (task and task.priority == priority) or (not task and priority == 'Medium') %}selected{% endif %}>{{ priority }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Status</span>
+        <select name="status">
+          {% for status in task_statuses %}
+            <option value="{{ status }}" {% if (task and task.status == status) or (not task and status == 'Pending') %}selected{% endif %}>{{ status }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field full">
+        <span>Notes</span>
+        <textarea name="notes" rows="6">{{ task.notes if task else '' }}</textarea>
+      </label>
+      <div class="form-actions full">
+        <button class="button primary" type="submit">{% if task %}Save changes{% else %}Create task{% endif %}</button>
+        <a class="button secondary" href="{{ url_for('crm.tasks') }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

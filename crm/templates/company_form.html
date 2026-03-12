@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% if company %}Edit company{% else %}New company{% endif %} | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Corporate account</p>
+      <h1>{% if company %}Edit company{% else %}New company{% endif %}</h1>
+      <p>Define industry, location, primary contact, and key account notes.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button ghost" href="{{ url_for('crm.companies') }}">Back to companies</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="panel form-panel full-span">
+    <form class="form-grid" method="post">
+      <label class="field">
+        <span>Name</span>
+        <input type="text" name="name" value="{{ company.name if company else '' }}" required>
+      </label>
+      <label class="field">
+        <span>Industry</span>
+        <input type="text" name="industry" value="{{ company.industry if company else '' }}">
+      </label>
+      <label class="field">
+        <span>Website</span>
+        <input type="url" name="website" value="{{ company.website if company else '' }}" placeholder="https://">
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" value="{{ company.email if company else '' }}">
+      </label>
+      <label class="field">
+        <span>Phone</span>
+        <input type="text" name="phone" value="{{ company.phone if company else '' }}">
+      </label>
+      <label class="field">
+        <span>City</span>
+        <input type="text" name="city" value="{{ company.city if company else '' }}">
+      </label>
+      <label class="field">
+        <span>Country</span>
+        <input type="text" name="country" value="{{ company.country if company else '' }}">
+      </label>
+      <label class="field full">
+        <span>Notes</span>
+        <textarea name="notes" rows="6">{{ company.notes if company else '' }}</textarea>
+      </label>
+      <div class="form-actions full">
+        <button class="button primary" type="submit">{% if company %}Save changes{% else %}Create company{% endif %}</button>
+        <a class="button secondary" href="{{ url_for('crm.companies') }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

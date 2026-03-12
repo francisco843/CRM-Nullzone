@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block page_title %}Global Search | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Cross-module query</p>
+      <h1>Global search</h1>
+      <p>Find companies, contacts, deals, and tasks from a single place.</p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="panel full-span">
+    <form class="inline-form search-form" method="get">
+      <input type="search" name="q" value="{{ query }}" placeholder="Type a name, email, stage, owner, or title">
+      <button class="button primary" type="submit">Search</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Companies</p>
+        <h2>{{ results.companies|length }} results</h2>
+      </div>
+    </div>
+    {% if results.companies %}
+      <div class="result-list">
+        {% for item in results.companies %}
+          <article class="result-item">
+            <strong>{{ item.name }}</strong>
+            <p>{{ item.industry or "No industry" }} · {{ item.city or "No city" }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No matches.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Contacts</p>
+        <h2>{{ results.contacts|length }} results</h2>
+      </div>
+    </div>
+    {% if results.contacts %}
+      <div class="result-list">
+        {% for item in results.contacts %}
+          <article class="result-item">
+            <strong>{{ item.first_name }} {{ item.last_name }}</strong>
+            <p>{{ item.email or "No email" }} · {{ item.status }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No matches.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Deals</p>
+        <h2>{{ results.deals|length }} results</h2>
+      </div>
+    </div>
+    {% if results.deals %}
+      <div class="result-list">
+        {% for item in results.deals %}
+          <article class="result-item">
+            <strong>{{ item.title }}</strong>
+            <p>{{ item.stage }} · {{ item.value|currency }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No matches.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Tasks</p>
+        <h2>{{ results.tasks|length }} results</h2>
+      </div>
+    </div>
+    {% if results.tasks %}
+      <div class="result-list">
+        {% for item in results.tasks %}
+          <article class="result-item">
+            <strong>{{ item.title }}</strong>
+            <p>{{ item.status }} · {{ item.priority }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No matches.</div>
+    {% endif %}
+  </section>
+{% endblock %}

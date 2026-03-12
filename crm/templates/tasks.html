@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block page_title %}Tasks | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Execution</p>
+      <h1>Tasks</h1>
+      <p>Plan follow-ups, operational actions, and pipeline blockers.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="{{ url_for('crm.new_task') }}">New task</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="stats-grid full-span">
+    <article class="metric-card">
+      <span class="metric-label">Total</span>
+      <strong>{{ summary.total or 0 }}</strong>
+      <small>Recorded tasks</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Open</span>
+      <strong>{{ summary.open or 0 }}</strong>
+      <small>Pending or in progress</small>
+    </article>
+    <article class="metric-card warning">
+      <span class="metric-label">Overdue</span>
+      <strong>{{ summary.overdue or 0 }}</strong>
+      <small>Need attention</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Completed</span>
+      <strong>{{ summary.completed or 0 }}</strong>
+      <small>Operational history</small>
+    </article>
+  </section>
+
+  <section class="panel full-span">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Daily operation</p>
+        <h2>Task list</h2>
+      </div>
+      <form class="inline-form" method="get">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search by title, owner, priority, or status">
+        <button class="button secondary" type="submit">Search</button>
+      </form>
+    </div>
+
+    {% if tasks %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Related</th>
+              <th>Owner</th>
+              <th>Due date</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in tasks %}
+              <tr>
+                <td>
+                  <div class="stacked-cell">
+                    <strong>{{ task.title }}</strong>
+                    <small>{{ task.notes or "No notes" }}</small>
+                  </div>
+                </td>
+                <td>{{ task.related_label or "General" }}</td>
+                <td>{{ task.owner or "No owner" }}</td>
+                <td>
+                  <span class="{% if task.is_overdue %}text-danger{% endif %}">{{ task.due_date|datetime }}</span>
+                </td>
+                <td><span class="badge tone-{{ task.priority|slugify }}">{{ task.priority }}</span></td>
+                <td><span class="badge tone-{{ task.status|slugify }}">{{ task.status }}</span></td>
+                <td>
+                  <div class="action-row">
+                    <a class="button ghost" href="{{ url_for('crm.edit_task', task_id=task.id) }}">Edit</a>
+                    <form method="post" action="{{ url_for('crm.delete_task', task_id=task.id) }}" data-confirm="Delete this task?">
+                      <button class="button danger" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">There are no tasks matching this search.</div>
+    {% endif %}
+  </section>
+{% endblock %}

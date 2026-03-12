@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block page_title %}{{ app_name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="{{ url_for('crm.dashboard') }}">
+        <span class="brand-mark">CN</span>
+        <span class="brand-copy">
+          <strong>{{ app_name }}</strong>
+          <small>CRM local + Nullzone agent</small>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav-link {% if request.endpoint == 'crm.dashboard' %}active{% endif %}" href="{{ url_for('crm.dashboard') }}">Dashboard</a>
+        <a class="nav-link {% if request.endpoint == 'crm.companies' %}active{% endif %}" href="{{ url_for('crm.companies') }}">Companies</a>
+        <a class="nav-link {% if request.endpoint == 'crm.contacts' %}active{% endif %}" href="{{ url_for('crm.contacts') }}">Contacts</a>
+        <a class="nav-link {% if request.endpoint == 'crm.deals' %}active{% endif %}" href="{{ url_for('crm.deals') }}">Deals</a>
+        <a class="nav-link {% if request.endpoint == 'crm.tasks' %}active{% endif %}" href="{{ url_for('crm.tasks') }}">Tasks</a>
+        <a class="nav-link {% if request.endpoint == 'crm.search' %}active{% endif %}" href="{{ url_for('crm.search') }}">Global Search</a>
+      </nav>
+
+      <section class="sidebar-panel">
+        <p class="eyebrow">Automation</p>
+        <h3>One startup flow</h3>
+        <p>The CRM runs Python addons from `scripts/` and also starts the bundled Nullzone IT Support Agent.</p>
+      </section>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">Unified Runtime</span>
+          <strong>CRM + remote support agent from a single local launch</strong>
+        </div>
+        <a class="button ghost" href="{{ url_for('crm.search') }}">Search the entire CRM</a>
+      </header>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <section class="flash-stack">
+            {% for category, message in messages %}
+              <article class="flash {{ category }}">{{ message }}</article>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+
+      {% block hero %}{% endblock %}
+
+      <main class="main-grid">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block page_title %}Dashboard | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Operations Center</p>
+      <h1>Sales and support dashboard</h1>
+      <p>Pipeline visibility, follow-up, and the Nullzone support agent from the same local CRM.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="{{ url_for('crm.new_deal') }}">New deal</a>
+      <a class="button secondary" href="{{ url_for('crm.new_task') }}">New task</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="stats-grid full-span">
+    <article class="metric-card">
+      <span class="metric-label">Companies</span>
+      <strong>{{ data.metrics.companies or 0 }}</strong>
+      <small>Registered account base</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Contacts</span>
+      <strong>{{ data.metrics.contacts or 0 }}</strong>
+      <small>Active business relationships</small>
+    </article>
+    <article class="metric-card highlight">
+      <span class="metric-label">Active pipeline</span>
+      <strong>{{ data.metrics.pipeline_value|currency }}</strong>
+      <small>Open opportunities</small>
+    </article>
+    <article class="metric-card warning">
+      <span class="metric-label">Overdue tasks</span>
+      <strong>{{ data.metrics.overdue_tasks or 0 }}</strong>
+      <small>{{ data.metrics.open_tasks or 0 }} pending tasks</small>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Automation</p>
+        <h2>Nullzone IT Support Agent</h2>
+      </div>
+      <span class="badge tone-{{ nullzone_agent_status.state|default('disabled')|slugify }}">
+        {{ nullzone_agent_status.label|default('Unknown') }}
+      </span>
+    </div>
+
+    <p class="agent-summary">{{ nullzone_agent_status.message|default('No agent status available.') }}</p>
+
+    {% if nullzone_agent_status.details %}
+      <div class="status-list">
+        {% for item in nullzone_agent_status.details %}
+          <div class="status-row">
+            <span>{{ item.label }}</span>
+            <strong>{{ item.value }}</strong>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if nullzone_agent_status.hint %}
+      <p class="agent-hint">{{ nullzone_agent_status.hint }}</p>
+    {% endif %}
+
+    {% if nullzone_agent_status.log_excerpt %}
+      <pre class="log-snippet">{{ nullzone_agent_status.log_excerpt }}</pre>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Funnel</p>
+        <h2>Pipeline distribution</h2>
+      </div>
+      <span class="chip">{{ data.metrics.won_value|currency }} won revenue</span>
+    </div>
+
+    {% if data.stage_summary %}
+      <div class="pipeline-list">
+        {% for stage in data.stage_summary %}
+          <div class="pipeline-row">
+            <div class="pipeline-copy">
+              <span>{{ stage.stage }}</span>
+              <strong>{{ stage.value|currency }}</strong>
+            </div>
+            <div class="pipeline-bar">
+              <span style="width: {{ (stage.total / max_stage_total * 100) if max_stage_total else 0 }}%"></span>
+            </div>
+            <small>{{ stage.total }} deals</small>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">There are no deals recorded yet.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Follow-up</p>
+        <h2>Priority tasks</h2>
+      </div>
+      <a class="button ghost" href="{{ url_for('crm.tasks') }}">View all</a>
+    </div>
+
+    {% if data.due_tasks %}
+      <div class="task-list">
+        {% for task in data.due_tasks %}
+          <article class="task-item {% if task.is_overdue %}is-overdue{% endif %}">
+            <div>
+              <strong>{{ task.title }}</strong>
+              <p>{{ task.related_label }}</p>
+            </div>
+            <div class="task-meta">
+              <span class="badge tone-{{ task.priority|slugify }}">{{ task.priority }}</span>
+              <small>{{ task.due_date|datetime }}</small>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">There are no active tasks right now.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Activity</p>
+        <h2>Latest activity</h2>
+      </div>
+    </div>
+
+    {% if data.recent_activity %}
+      <div class="feed-list">
+        {% for item in data.recent_activity %}
+          <article class="feed-item">
+            <div>
+              <strong>{{ item.summary }}</strong>
+              <p>{{ item.entity_type|capitalize }} · {{ item.action|capitalize }}</p>
+            </div>
+            <small>{{ item.created_at|datetime }}</small>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">Activity will appear here as you use the CRM.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Server startup</p>
+        <h2>Executed addons</h2>
+      </div>
+      <span class="chip">{{ addon_results|length }} scripts</span>
+    </div>
+
+    {% if addon_results %}
+      <div class="addon-list">
+        {% for addon in addon_results %}
+          <article class="addon-item">
+            <div>
+              <strong>{{ addon.name }}</strong>
+              <p>{{ addon.message }}</p>
+            </div>
+            <div class="addon-meta">
+              <span class="badge tone-{{ addon.status|slugify }}">{{ addon.status }}</span>
+              <small>{{ addon.duration_ms }} ms</small>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">No Python files were found inside `scripts/`.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel full-span">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Recent deals</p>
+        <h2>Latest created deals</h2>
+      </div>
+      <a class="button ghost" href="{{ url_for('crm.deals') }}">Manage pipeline</a>
+    </div>
+
+    {% if data.recent_deals %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Company</th>
+              <th>Contact</th>
+              <th>Stage</th>
+              <th>Value</th>
+              <th>Close date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for deal in data.recent_deals %}
+              <tr>
+                <td>{{ deal.title }}</td>
+                <td>{{ deal.company_name or "No company" }}</td>
+                <td>{{ deal.contact_name or "No contact" }}</td>
+                <td><span class="badge tone-{{ deal.stage|slugify }}">{{ deal.stage }}</span></td>
+                <td>{{ deal.value|currency }}</td>
+                <td>{{ deal.expected_close_date|datetime }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">There are no recent deals yet.</div>
+    {% endif %}
+  </section>
+{% endblock %}

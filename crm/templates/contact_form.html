@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% if contact %}Edit contact{% else %}New contact{% endif %} | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Contact profile</p>
+      <h1>{% if contact %}Edit contact{% else %}New contact{% endif %}</h1>
+      <p>Capture relationship details, follow-up data, and business context.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button ghost" href="{{ url_for('crm.contacts') }}">Back to contacts</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="panel form-panel full-span">
+    <form class="form-grid" method="post">
+      <label class="field">
+        <span>First name</span>
+        <input type="text" name="first_name" value="{{ contact.first_name if contact else '' }}" required>
+      </label>
+      <label class="field">
+        <span>Last name</span>
+        <input type="text" name="last_name" value="{{ contact.last_name if contact else '' }}" required>
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" value="{{ contact.email if contact else '' }}">
+      </label>
+      <label class="field">
+        <span>Phone</span>
+        <input type="text" name="phone" value="{{ contact.phone if contact else '' }}">
+      </label>
+      <label class="field">
+        <span>Company</span>
+        <select name="company_id">
+          <option value="">No company</option>
+          {% for company in companies %}
+            <option value="{{ company.id }}" {% if contact and company.id == contact.company_id %}selected{% endif %}>{{ company.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Role</span>
+        <input type="text" name="role" value="{{ contact.role if contact else '' }}" placeholder="e.g. Head of Sales">
+      </label>
+      <label class="field">
+        <span>Status</span>
+        <select name="status">
+          {% for status in contact_statuses %}
+            <option value="{{ status }}" {% if (contact and contact.status == status) or (not contact and status == 'Lead') %}selected{% endif %}>{{ status }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Source</span>
+        <input type="text" name="source" value="{{ contact.source if contact else '' }}" placeholder="Referral, LinkedIn, Web...">
+      </label>
+      <label class="field full">
+        <span>Notes</span>
+        <textarea name="notes" rows="6">{{ contact.notes if contact else '' }}</textarea>
+      </label>
+      <div class="form-actions full">
+        <button class="button primary" type="submit">{% if contact %}Save changes{% else %}Create contact{% endif %}</button>
+        <a class="button secondary" href="{{ url_for('crm.contacts') }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

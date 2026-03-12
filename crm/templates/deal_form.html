@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% if deal %}Edit deal{% else %}New deal{% endif %} | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Sales operation</p>
+      <h1>{% if deal %}Edit deal{% else %}New deal{% endif %}</h1>
+      <p>Control stage, owner, expected value, and target close date.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button ghost" href="{{ url_for('crm.deals') }}">Back to deals</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="panel form-panel full-span">
+    <form class="form-grid" method="post">
+      <label class="field full">
+        <span>Title</span>
+        <input type="text" name="title" value="{{ deal.title if deal else '' }}" required>
+      </label>
+      <label class="field">
+        <span>Company</span>
+        <select name="company_id">
+          <option value="">No company</option>
+          {% for company in companies %}
+            <option value="{{ company.id }}" {% if deal and company.id == deal.company_id %}selected{% endif %}>{{ company.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Contact</span>
+        <select name="contact_id">
+          <option value="">No contact</option>
+          {% for contact in contacts %}
+            <option value="{{ contact.id }}" {% if deal and contact.id == deal.contact_id %}selected{% endif %}>{{ contact.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Stage</span>
+        <select name="stage">
+          {% for stage in deal_stages %}
+            <option value="{{ stage }}" {% if (deal and deal.stage == stage) or (not deal and stage == 'Prospecting') %}selected{% endif %}>{{ stage }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span>Value</span>
+        <input type="number" name="value" min="0" step="0.01" value="{{ deal.value if deal else '0' }}">
+      </label>
+      <label class="field">
+        <span>Owner</span>
+        <input type="text" name="owner" value="{{ deal.owner if deal else '' }}">
+      </label>
+      <label class="field">
+        <span>Expected close date</span>
+        <input type="date" name="expected_close_date" value="{{ deal.expected_close_date if deal else '' }}">
+      </label>
+      <label class="field full">
+        <span>Notes</span>
+        <textarea name="notes" rows="6">{{ deal.notes if deal else '' }}</textarea>
+      </label>
+      <div class="form-actions full">
+        <button class="button primary" type="submit">{% if deal %}Save changes{% else %}Create deal{% endif %}</button>
+        <a class="button secondary" href="{{ url_for('crm.deals') }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block page_title %}Deals | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Pipeline</p>
+      <h1>Deals</h1>
+      <p>Monitor funnel value, stages, and expected close dates.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="{{ url_for('crm.new_deal') }}">New deal</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="stats-grid full-span">
+    <article class="metric-card">
+      <span class="metric-label">Total</span>
+      <strong>{{ summary.total or 0 }}</strong>
+      <small>Recorded deals</small>
+    </article>
+    <article class="metric-card highlight">
+      <span class="metric-label">Active pipeline</span>
+      <strong>{{ summary.pipeline_value|currency }}</strong>
+      <small>Open opportunities</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Won</span>
+      <strong>{{ summary.won_value|currency }}</strong>
+      <small>Successfully closed deals</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Negotiation</span>
+      <strong>{{ summary.negotiation or 0 }}</strong>
+      <small>Deals ready to push</small>
+    </article>
+  </section>
+
+  <section class="panel full-span">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Sales funnel</p>
+        <h2>Deal list</h2>
+      </div>
+      <form class="inline-form" method="get">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search by title, stage, owner, or company">
+        <button class="button secondary" type="submit">Search</button>
+      </form>
+    </div>
+
+    {% if deals %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Company</th>
+              <th>Contact</th>
+              <th>Stage</th>
+              <th>Owner</th>
+              <th>Close date</th>
+              <th>Value</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for deal in deals %}
+              <tr>
+                <td><strong>{{ deal.title }}</strong></td>
+                <td>{{ deal.company_name or "No company" }}</td>
+                <td>{{ deal.contact_name or "No contact" }}</td>
+                <td><span class="badge tone-{{ deal.stage|slugify }}">{{ deal.stage }}</span></td>
+                <td>{{ deal.owner or "No owner" }}</td>
+                <td>{{ deal.expected_close_date|datetime }}</td>
+                <td>{{ deal.value|currency }}</td>
+                <td>
+                  <div class="action-row">
+                    <a class="button ghost" href="{{ url_for('crm.edit_deal', deal_id=deal.id) }}">Edit</a>
+                    <form method="post" action="{{ url_for('crm.delete_deal', deal_id=deal.id) }}" data-confirm="Delete this deal?">
+                      <button class="button danger" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">There are no deals matching this search.</div>
+    {% endif %}
+  </section>
+{% endblock %}

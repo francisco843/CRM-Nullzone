@@ -1,0 +1,149 @@
+
+[2026-03-12 15:22:45] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:22:46.024Z] Connecting to backend...
+[2026-03-12T21:22:46.377Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:22:46.426Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:22:46.426Z] Reconnecting in 5.0s ...
+
+[2026-03-12T21:22:46.594Z] Received SIGTERM — shutting down.
+
+[2026-03-12 15:23:05] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:23:05.738Z] Connecting to backend...
+[2026-03-12T21:23:06.023Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:06.074Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:06.075Z] Reconnecting in 5.0s ...
+[2026-03-12T21:23:11.076Z] Connecting to backend...
+[2026-03-12T21:23:11.325Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:11.367Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:11.368Z] Reconnecting in 5.0s ...
+[2026-03-12T21:23:16.369Z] Connecting to backend...
+[2026-03-12T21:23:16.611Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:16.654Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:16.654Z] Reconnecting in 5.0s ...
+[2026-03-12T21:23:21.655Z] Connecting to backend...
+[2026-03-12T21:23:21.885Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:21.928Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:21.928Z] Reconnecting in 5.0s ...
+[2026-03-12T21:23:26.929Z] Connecting to backend...
+[2026-03-12T21:23:27.174Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:27.217Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:27.217Z] Reconnecting in 5.0s ...
+[2026-03-12T21:23:32.219Z] Connecting to backend...
+[2026-03-12T21:23:32.455Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:32.497Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:32.498Z] Reconnecting in 5.0s ...
+[2026-03-12T21:23:37.499Z] Connecting to backend...
+[2026-03-12T21:23:37.736Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:23:37.780Z] Disconnected  code=4401  reason=Invalid agent token
+[2026-03-12T21:23:37.780Z] Reconnecting in 5.0s ...
+
+[2026-03-12T21:23:39.052Z] Received SIGINT — shutting down.
+
+[2026-03-12 15:33:56] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:33:56.708Z] Connecting to backend...
+[2026-03-12T21:33:56.992Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:33:57.777Z] Spawning PTY  shell=/bin/zsh  size=85x30
+[2026-03-12T21:33:57.781Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:36:14.885Z] Spawning PTY  shell=/bin/zsh  size=85x30
+[2026-03-12T21:36:14.890Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:38:58.003Z] Disconnected  code=1006  reason=(none)
+[2026-03-12T21:38:58.005Z] Reconnecting in 5.0s ...
+[2026-03-12T21:39:03.007Z] Connecting to backend...
+[2026-03-12T21:39:03.266Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:39:03.408Z] Spawning PTY  shell=/bin/zsh  size=85x30
+[2026-03-12T21:39:03.411Z] Failed to spawn PTY: posix_spawnp failed.
+
+[2026-03-12T21:40:40.417Z] Received SIGINT — shutting down.
+
+[2026-03-12 15:40:42] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:40:42.292Z] Connecting to backend...
+[2026-03-12T21:40:42.636Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:40:42.785Z] Spawning PTY  shell=/bin/zsh  size=85x30
+[2026-03-12T21:40:42.788Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:40:42.788Z] Falling back to compatibility shell mode.
+[2026-03-12T21:40:42.792Z] Compatibility shell session started  (/bin/zsh)
+[2026-03-12T21:43:17.881Z] Compatibility shell exited  code=0  signal=null
+[2026-03-12T21:43:18.061Z] Spawning PTY  shell=/bin/zsh  size=85x30
+[2026-03-12T21:43:18.065Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:43:18.065Z] Falling back to compatibility shell mode.
+[2026-03-12T21:43:18.067Z] Compatibility shell session started  (/bin/zsh)
+[2026-03-12T21:43:19.689Z] Compatibility shell exited  code=0  signal=null
+
+[2026-03-12T21:43:27.402Z] Received SIGINT — shutting down.
+
+[2026-03-12 15:43:30] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:43:30.910Z] Connecting to backend...
+[2026-03-12T21:43:31.160Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:43:31.301Z] Spawning PTY  shell=/bin/zsh  size=85x30
+[2026-03-12T21:43:31.305Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:43:31.305Z] Falling back to compatibility shell mode.
+[2026-03-12T21:43:31.308Z] Compatibility shell session started  (/bin/zsh)
+[2026-03-12T21:47:39.268Z] Compatibility shell exited  code=130  signal=null
+[2026-03-12T21:47:39.451Z] Spawning PTY  shell=/bin/zsh  size=85x26
+[2026-03-12T21:47:39.454Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:47:39.454Z] Falling back to compatibility shell mode.
+[2026-03-12T21:47:39.456Z] Compatibility shell session started  (/bin/zsh)
+[2026-03-12T21:47:41.537Z] Compatibility shell exited  code=130  signal=null
+
+[2026-03-12T21:47:43.600Z] Received SIGINT — shutting down.
+
+[2026-03-12 15:48:11] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:48:11.662Z] Connecting to backend...
+[2026-03-12T21:48:11.982Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:48:12.399Z] Spawning PTY  shell=/bin/zsh  size=85x26
+[2026-03-12T21:48:12.401Z] Failed to spawn PTY: posix_spawnp failed.
+[2026-03-12T21:51:27.825Z] Spawning PTY  shell=/bin/zsh  size=85x26
+[2026-03-12T21:51:27.836Z] Failed to spawn PTY: posix_spawnp failed.
+
+[2026-03-12T21:51:59.719Z] Received SIGINT — shutting down.
+
+[2026-03-12 15:52:36] Starting Nullzone IT Support Agent from CRM.
+══════════════════════════════════════════════════════════
+  Remote Shell Agent  v2.1  [macOS]
+  !!!  FULL UNRESTRICTED SHELL ACCESS  !!!
+  FOR PERSONAL LAB USE ONLY
+  Any command run in the browser panel executes here.
+══════════════════════════════════════════════════════════
+[2026-03-12T21:52:36.852Z] Connecting to backend...
+[2026-03-12T21:52:37.111Z] Connected  (agentId: agent-MacBook-Air-de-Francisco)
+[2026-03-12T21:52:37.631Z] Spawning PTY  shell=/bin/zsh  size=85x26
+[2026-03-12T21:52:37.636Z] PTY session started  (/bin/zsh)
+
+[2026-03-12T21:54:44.608Z] Received SIGINT — shutting down.
+[2026-03-12T21:54:44.614Z] PTY session terminated by request

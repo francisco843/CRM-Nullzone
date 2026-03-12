@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block page_title %}Companies | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Accounts</p>
+      <h1>Companies</h1>
+      <p>Centralize corporate customer data, industry, and pipeline value.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="{{ url_for('crm.new_company') }}">New company</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="stats-grid full-span">
+    <article class="metric-card">
+      <span class="metric-label">Total</span>
+      <strong>{{ summary.total or 0 }}</strong>
+      <small>Registered companies</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">With contacts</span>
+      <strong>{{ summary.with_contacts or 0 }}</strong>
+      <small>Active relationship</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">With deals</span>
+      <strong>{{ summary.with_deals or 0 }}</strong>
+      <small>Open or historical pipeline</small>
+    </article>
+    <article class="metric-card highlight">
+      <span class="metric-label">Active pipeline</span>
+      <strong>{{ summary.active_pipeline|currency }}</strong>
+      <small>Value linked to accounts</small>
+    </article>
+  </section>
+
+  <section class="panel full-span">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Account base</p>
+        <h2>Company list</h2>
+      </div>
+      <form class="inline-form" method="get">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search by name, industry, or city">
+        <button class="button secondary" type="submit">Search</button>
+      </form>
+    </div>
+
+    {% if companies %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Industry</th>
+              <th>Location</th>
+              <th>Contact</th>
+              <th>Relationships</th>
+              <th>Pipeline</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for company in companies %}
+              <tr>
+                <td>
+                  <div class="stacked-cell">
+                    <strong>{{ company.name }}</strong>
+                    <small>{{ company.website or "No website" }}</small>
+                  </div>
+                </td>
+                <td>{{ company.industry or "No industry" }}</td>
+                <td>{{ company.city or "No city" }}{% if company.country %}, {{ company.country }}{% endif %}</td>
+                <td>
+                  <div class="stacked-cell">
+                    <span>{{ company.email or "No email" }}</span>
+                    <small>{{ company.phone or "No phone" }}</small>
+                  </div>
+                </td>
+                <td>{{ company.contact_count }} contacts · {{ company.deal_count }} deals</td>
+                <td>{{ company.pipeline_value|currency }}</td>
+                <td>
+                  <div class="action-row">
+                    <a class="button ghost" href="{{ url_for('crm.edit_company', company_id=company.id) }}">Edit</a>
+                    <form method="post" action="{{ url_for('crm.delete_company', company_id=company.id) }}" data-confirm="Delete this company?">
+                      <button class="button danger" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">There are no companies matching this search.</div>
+    {% endif %}
+  </section>
+{% endblock %}

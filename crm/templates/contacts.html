@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block page_title %}Contacts | {{ app_name }}{% endblock %}
+
+{% block hero %}
+  <section class="hero-card">
+    <div>
+      <p class="eyebrow">Relationships</p>
+      <h1>Contacts</h1>
+      <p>Manage leads, customers, and decision makers with a clear history.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button primary" href="{{ url_for('crm.new_contact') }}">New contact</a>
+    </div>
+  </section>
+{% endblock %}
+
+{% block content %}
+  <section class="stats-grid full-span">
+    <article class="metric-card">
+      <span class="metric-label">Total</span>
+      <strong>{{ summary.total or 0 }}</strong>
+      <small>Registered contacts</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Active</span>
+      <strong>{{ summary.active or 0 }}</strong>
+      <small>Currently in follow-up</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Customers</span>
+      <strong>{{ summary.customers or 0 }}</strong>
+      <small>In your portfolio</small>
+    </article>
+    <article class="metric-card">
+      <span class="metric-label">Linked company</span>
+      <strong>{{ summary.linked_companies or 0 }}</strong>
+      <small>Connected to an account</small>
+    </article>
+  </section>
+
+  <section class="panel full-span">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">Sales base</p>
+        <h2>Contact list</h2>
+      </div>
+      <form class="inline-form" method="get">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search by name, email, or company">
+        <button class="button secondary" type="submit">Search</button>
+      </form>
+    </div>
+
+    {% if contacts %}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Company</th>
+              <th>Role</th>
+              <th>Contact info</th>
+              <th>Status</th>
+              <th>Source</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for contact in contacts %}
+              <tr>
+                <td>
+                  <strong>{{ contact.first_name }} {{ contact.last_name }}</strong>
+                </td>
+                <td>{{ contact.company_name or "No company" }}</td>
+                <td>{{ contact.role or "No role" }}</td>
+                <td>
+                  <div class="stacked-cell">
+                    <span>{{ contact.email or "No email" }}</span>
+                    <small>{{ contact.phone or "No phone" }}</small>
+                  </div>
+                </td>
+                <td><span class="badge tone-{{ contact.status|slugify }}">{{ contact.status }}</span></td>
+                <td>{{ contact.source or "Direct" }}</td>
+                <td>
+                  <div class="action-row">
+                    <a class="button ghost" href="{{ url_for('crm.edit_contact', contact_id=contact.id) }}">Edit</a>
+                    <form method="post" action="{{ url_for('crm.delete_contact', contact_id=contact.id) }}" data-confirm="Delete this contact?">
+                      <button class="button danger" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">There are no contacts to show for this filter.</div>
+    {% endif %}
+  </section>
+{% endblock %}
