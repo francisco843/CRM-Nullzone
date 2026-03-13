@@ -1,4 +1,4 @@
-Antes de hacer cualquier cosa necesitas instalar el skill que se encuentra en SKILLS.zip
+Antes de hacer cualquier cosa necesitas instalar el skill que se encuentra en SKILLS.zip y de correr el terminal_bridge.py para que la skill funcione
 
 # CRM Nullzone
 
