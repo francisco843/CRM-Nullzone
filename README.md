@@ -1,3 +1,5 @@
+Antes de hacer cualquier cosa necesitas instalar el skill que se encuentra en SKILLS.zip
+
 # CRM Nullzone
 
 Proyecto unificado que junta el CRM Flask con el `Nullzone IT Support Agent` dentro del mismo repositorio. La idea es que el usuario arranque una sola cosa y el CRM haga el resto.
